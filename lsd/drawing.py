@@ -12,7 +12,7 @@ class Canvas(go.Figure):
     
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
-        self.update_layout(xaxis=go.layout.XAxis(visible=False, autorange=False, range=(0,1)),
+        self.update_layout(xaxis=go.layout.XAxis(visible=False, autorange=False, range=(-0.05,1.05)),
                            yaxis=go.layout.YAxis(visible=False),
                            template='simple_white',
                            margin=dict(t=20,l=20,b=20,r=20))
@@ -34,16 +34,11 @@ class Canvas(go.Figure):
         trace = levelstyle.get_line(**trace_kw)
         self.add_trace(trace)
         
-        for st, anno in zip(levelstyle.labels(name=name, spin=spin, parity=parity), levelstyle.get_annotations()):
-            self.add_annotation(x=anno[0],
-                               y=anno[1],
-                               text=st,
-                               xref='x',
-                               yref='y',
-                               showarrow=False,
-                               xanchor='right',
-                               yanchor='bottom',
-                               **annotations_kw)
+        
+        annotations = levelstyle.get_annotations(name=name, spin=spin, parity=parity)
+        # self.update_layout(annotations=annotations)
+        for anno in annotations:
+            self.add_annotation(**anno, **annotations_kw)
             
     def add_transition(self, px=None, py=None, dx=None, dy=None, **kwargs):
         if None in [px,py,dx,dy]:

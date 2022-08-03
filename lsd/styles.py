@@ -23,14 +23,11 @@ class LevelStyle(ABC):
     def get_annotations(self):
         pass
     
-    @abstractmethod
-    def labels(self, name='', spin='', parity=''):
-        pass
     
     
 class Flat(LevelStyle):
     '''level style ________'''
-    def __init__(self, x_pos, y_pos, width, height):
+    def __init__(self, x_pos, y_pos, width, height=None):
         '''give the x_pos, y_pos and width in absolute units'''
         self.half_width = width/2
         self.x = (x_pos-self.half_width, x_pos+self.half_width)
@@ -40,12 +37,13 @@ class Flat(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos]
+    def get_annotations(self, name='', spin='', parity=''):
+        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='left', showarrow=False)
+        return [annotation]
         
-    def labels(self, name='', spin='', parity=''):
-        st = f"{name} {spin}{parity}"
-        return [st]
+    # def labels(self, name='', spin='', parity=''):
+    #     st = f"{name} {spin}{parity}"
+    #     return [st]
     
     
 class Platform(LevelStyle):
@@ -75,14 +73,11 @@ class Platform(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos, self.spin_pos]
-    
-    def labels(self, name='', spin='', parity=''):
-        st1 = name
-        st2 = f"{spin}{parity}"
-        return [st1, st2]
-    
+    def get_annotations(self, name='', spin='', parity=''):
+        anno1 = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name}", yanchor='middle', xanchor='left', showarrow=False)
+        anno2 = dict(x=self.spin_pos[0], y=self.spin_pos[1], xref='x', yref='y', text=f"{spin}{parity}", yanchor='bottom', xanchor='right', showarrow=False)
+        return [anno1, anno2]
+
     
 class IPlatform(LevelStyle):
     '''level style --\__/--'''
@@ -110,13 +105,10 @@ class IPlatform(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos, self.spin_pos]
-    
-    def labels(self, name='', spin='', parity=''):
-        st1 = name
-        st2 = f"{spin}{parity}"
-        return [st1, st2]
+    def get_annotations(self, name='', spin='', parity=''):
+        anno1 = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name}", yanchor='middle', xanchor='left', showarrow=False)
+        anno2 = dict(x=self.spin_pos[0], y=self.spin_pos[1], xref='x', yref='y', text=f"{spin}{parity}", yanchor='bottom', xanchor='right', showarrow=False)
+        return [anno1, anno2]
     
     
 class Raised(LevelStyle):
@@ -141,12 +133,9 @@ class Raised(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos]
-    
-    def labels(self, name='', spin='', parity=''):
-        st = f"{name} {spin}{parity}"
-        return [st]
+    def get_annotations(self, name='', spin='', parity=''):
+        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='left', showarrow=False)
+        return [annotation]
     
     
 class IRaised(LevelStyle):
@@ -171,12 +160,10 @@ class IRaised(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos]
-    
-    def labels(self, name='', spin='', parity=''):
-        st = f"{name} {spin}{parity}"
-        return [st]
+    def get_annotations(self, name='', spin='', parity=''):
+        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='right', showarrow=False)
+        return [annotation]
+
     
     
 class Lowered(LevelStyle):
@@ -202,12 +189,10 @@ class Lowered(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos]
+    def get_annotations(self, name='', spin='', parity=''):
+        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='left', showarrow=False)
+        return [annotation]
     
-    def labels(self, name='', spin='', parity=''):
-        st = f"{name} {spin}{parity}"
-        return [st]
     
     
 class ILowered(LevelStyle):
@@ -233,12 +218,9 @@ class ILowered(LevelStyle):
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
-    def get_annotations(self):
-        return [self.name_pos]
-    
-    def labels(self, name='', spin='', parity=''):
-        st = f"{name} {spin}{parity}"
-        return [st]
+    def get_annotations(self, name='', spin='', parity=''):
+        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='left', showarrow=False)
+        return [annotation]
     
     
 levelstyles = {"platform": Platform, "iplatform": IPlatform, "flat": Flat, 'lowered': Lowered, 'raised': Raised, 'iraised': IRaised, 'ilowered': ILowered}
