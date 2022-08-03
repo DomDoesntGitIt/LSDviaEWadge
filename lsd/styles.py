@@ -66,8 +66,8 @@ class Platform(LevelStyle):
                   y_pos-height)
         
         self.name_pos = (x_pos + self.half_width, y_pos-height)
-        self.spin_pos = (x_pos - self.half_width + shift, y_pos-height)
-        self.parity_pos = (x_pos - self.half_width + shift, y_pos-height)
+        self.spin_pos = (x_pos - self.half_width, y_pos-height)
+        self.parity_pos = (x_pos - self.half_width, y_pos-height)
         self.reverse = True
         
     def get_line(self, **kwargs):
@@ -75,7 +75,7 @@ class Platform(LevelStyle):
     
     def get_annotations(self, name='', spin='', parity=''):
         anno1 = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name}", yanchor='middle', xanchor='left', showarrow=False)
-        anno2 = dict(x=self.spin_pos[0], y=self.spin_pos[1], xref='x', yref='y', text=f"{spin}{parity}", yanchor='bottom', xanchor='right', showarrow=False)
+        anno2 = dict(x=self.spin_pos[0], y=self.spin_pos[1], xref='x', yref='y', text=f"{spin}{parity}", yanchor='middle', xanchor='right', showarrow=False)
         return [anno1, anno2]
 
     
@@ -99,15 +99,15 @@ class IPlatform(LevelStyle):
                   y_pos+height)
         
         self.name_pos = (x_pos + self.half_width, y_pos+height)
-        self.spin_pos = (x_pos - self.half_width + shift, y_pos+height)
-        self.parity_pos = (x_pos - self.half_width + shift, y_pos+height)
+        self.spin_pos = (x_pos - self.half_width, y_pos+height)
+        self.parity_pos = (x_pos - self.half_width, y_pos+height)
             
     def get_line(self, **kwargs):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
     def get_annotations(self, name='', spin='', parity=''):
         anno1 = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name}", yanchor='middle', xanchor='left', showarrow=False)
-        anno2 = dict(x=self.spin_pos[0], y=self.spin_pos[1], xref='x', yref='y', text=f"{spin}{parity}", yanchor='bottom', xanchor='right', showarrow=False)
+        anno2 = dict(x=self.spin_pos[0], y=self.spin_pos[1], xref='x', yref='y', text=f"{spin}{parity}", yanchor='middle', xanchor='right', showarrow=False)
         return [anno1, anno2]
     
     
