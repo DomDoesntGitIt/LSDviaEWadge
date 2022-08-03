@@ -21,10 +21,17 @@ class Canvas(go.Figure):
                   name='', spin='', parity='',
                   trace_kw={}, annotations_kw={}):
         
+        
+        
+        trace_kw = copy.deepcopy(trace_kw)
         if width>1 or width<0:
             raise ValueError("width is relative width and must be between 0 and 1")
         
+        trace_defaults = dict(line=dict(color='black'))
         
+        for default in trace_defaults.keys():
+            if default not in trace_kw.keys():
+                trace_kw[default] = trace_defaults[default]
         
         style= style.lower()
         Style = levelstyles[style]
@@ -46,6 +53,14 @@ class Canvas(go.Figure):
         if px<0 or px>1 or dx<0 or dx>1:
             raise ValueError("x positions must be in relative units")
         
+        kwargs = copy.deepcopy(kwargs)
+        
+        defaults = dict(showarrow=True, arrowhead=3, arrowsize=1, arrowwidth=1.5, arrowcolor='black', text='', yanchor='bottom')
+              
+        for default in defaults.keys():
+                if default not in list(kwargs.keys()):
+                    kwargs[default] = defaults[default]
+                    
         kwargs["xref"] = 'x'
         kwargs["axref"] = 'x'
         kwargs['yref'] = 'y'
@@ -106,11 +121,9 @@ class Canvas(go.Figure):
             transitions.sort(key=transition_sort)
             
         # make the transitions
-        defaults = dict(showarrow=True, arrowhead=3, arrowsize=1, arrowwidth=1.5, arrowcolor='black', text='')
+        defaults = dict(showarrow=True, arrowhead=3, arrowsize=1, arrowwidth=1.5, arrowcolor='black', text='', yanchor='bottom')
         for transition in transitions:
-            for default in defaults.keys():
-                if default not in list(transition_kw.keys()):
-                    transition_kw[default] = defaults[default]
+            
             available_x = spc_mng.get_path(transition.parent.energy, transition.daughter.energy)
             available_y_head = spc_mng.get_spaced_y(transition.daughter.energy)
             available_y_tail = spc_mng.get_spaced_y(transition.parent.energy)
