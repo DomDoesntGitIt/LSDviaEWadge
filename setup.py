@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name='LSD',
-    version='0.0.1',
+    version='0.0.2',
     author='Elliot Wadge',
     author_email='ewadge@sfu.ca',
     description='Package for making level schemes',
