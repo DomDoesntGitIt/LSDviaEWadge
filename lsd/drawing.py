@@ -9,6 +9,9 @@ import copy
 
 
 class Canvas(go.Figure):
+    transition_defaults = dict(showarrow=True, arrowhead=3, arrowsize=1, arrowwidth=1.5, arrowcolor='black', text='', yanchor='bottom')
+    level_defaults = dict(line=dict(color='black'))
+    
     
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
@@ -27,11 +30,11 @@ class Canvas(go.Figure):
         if width>1 or width<0:
             raise ValueError("width is relative width and must be between 0 and 1")
         
-        trace_defaults = dict(line=dict(color='black'))
         
-        for default in trace_defaults.keys():
+        
+        for default in self.level_defaults.keys():
             if default not in trace_kw.keys():
-                trace_kw[default] = trace_defaults[default]
+                trace_kw[default] = self.level_defaults[default]
         
         style= style.lower()
         Style = levelstyles[style]
@@ -54,12 +57,10 @@ class Canvas(go.Figure):
             raise ValueError("x positions must be in relative units")
         
         kwargs = copy.deepcopy(kwargs)
-        
-        defaults = dict(showarrow=True, arrowhead=3, arrowsize=1, arrowwidth=1.5, arrowcolor='black', text='', yanchor='bottom')
               
-        for default in defaults.keys():
+        for default in self.transition_defaults.keys():
                 if default not in list(kwargs.keys()):
-                    kwargs[default] = defaults[default]
+                    kwargs[default] = self.transition_defaults[default]
                     
         kwargs["xref"] = 'x'
         kwargs["axref"] = 'x'
@@ -69,7 +70,7 @@ class Canvas(go.Figure):
         self.add_annotation(x=dx, y=dy, ax=px, ay=py, **kwargs)
             
     def read_from_nlv(self, filename:str, spacing=100, x_points=np.linspace(0.2,0.8,10),
-                      transition_sort: callable = None, proportional=False, level_kw={}, transition_kw={}):
+                      transition_sort: callable = None, proportional=False, br_widths=False, level_kw={}, transition_kw={}):
         levels, transitions = read(filename)
         
         float_levels = []
@@ -120,26 +121,41 @@ class Canvas(go.Figure):
         else:
             transitions.sort(key=transition_sort)
             
+        
         # make the transitions
-        defaults = dict(showarrow=True, arrowhead=3, arrowsize=1, arrowwidth=1.5, arrowcolor='black', text='', yanchor='bottom')
-        for transition in transitions:
+        
             
+        
+        for transition in transitions:
+            cpy_transition_kw = copy.deepcopy(transition_kw)
             available_x = spc_mng.get_path(transition.parent.energy, transition.daughter.energy)
             available_y_head = spc_mng.get_spaced_y(transition.daughter.energy)
             available_y_tail = spc_mng.get_spaced_y(transition.parent.energy)
+            
+            if br_widths:
+                if "arrowwidth" in cpy_transition_kw.keys():
+                    try:
+                        cpy_transition_kw["arrowwidth"] *= (1+transition.branching_ratio)
+                    except TypeError:
+                        pass
+                else:
+                    try:
+                        cpy_transition_kw["arrowwidth"] = self.transition_defaults["arrowwidth"] * (1+transition.branching_ratio)
+                    except TypeError:
+                        pass
             
             if proportional:
                 self.add_transition(px=available_x,
                                     dx=available_x,
                                     py=transition.parent.energy,
                                     dy=transition.daughter.energy,
-                                    **transition_kw)
+                                    **cpy_transition_kw)
             else:
                 self.add_transition(px=available_x,
                                     dx=available_x,
                                     py=available_y_tail,
                                     dy=available_y_head,
-                                    **transition_kw)
+                                    **cpy_transition_kw)
         
         
         
