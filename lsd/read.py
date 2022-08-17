@@ -23,14 +23,15 @@ def read(filename):
     transitions = []
     
     with open(filename) as f:
+        # iterate through the lines
         for line in f:
-            #seperate out the three different columns
+            # seperate out the three different columns
             line = line.replace(' ','')
             line = line.strip()
             gamma_collect = False
             cols = line.split('>')
             
-
+            # handle the two levels
             for i,col in enumerate((cols[0],cols[2])):
                 args = col.split(',')
                 for j, arg in enumerate(args):
@@ -55,16 +56,16 @@ def read(filename):
                         found = True
                 if not found:
                     levels.append(lev)
-                    
-            args = cols[1].split(',')
             
+            
+            # handle the transition  
+            args = cols[1].split(',')
             for j, arg in enumerate(args):
                     try:
-                        arg.replace("\\n",'')
-                        arg = float(arg)
                         args[j] = float(args[j])
                     except ValueError:
-                        pass   
+                        args[j] = None   
+                        
             transition = Transition(parent, daughter, *args)
             transitions.append(transition)           
                     
