@@ -23,9 +23,7 @@
 6762.0,None,None > 5947.0,None > 814.98
 6738.0,None,None > 5923.0,None > 814.98
 6722.9,None,None > 5907.9,None > 814.98
-6656.6,None,None > 5841.6,None > 814.98
 6629.5,None,None > 5814.5,None > 814.98
-6556.0,None,None > 5741.0,None > 814.98
 6524.5,None,None > 5709.5,None > 814.98
 6468.7,None,None > 5653.7,None > 814.98
 6447.0,None,None > 5632.0,None > 814.98
@@ -58,7 +56,6 @@
 4949.0,None,None > 4134.0,None > 814.98
 4809.4,None,None > 3994.4,None > 814.98
 4698.0,None,None > 3883.0,None > 814.98
-4697.0,None,None > 3882.0,None > 814.98
 4299.0,None,None > 3484.0,None > 814.98
 2053.0,2.0,+ > 1238.0,None > 814.98
 2088.39,0.0,+ > 1273.4,1.0 > 814.98
@@ -71,16 +68,14 @@
 6826.9,None,None > 5442.1,None > 1384.79
 6806.0,None,None > 5421.2,None > 1384.79
 6738.0,None,None > 5353.2,None > 1384.79
-6656.6,None,None > 5271.8,None > 1384.79
 6629.5,None,None > 5244.7,None > 1384.79
-6556.0,None,None > 5171.2,None > 1384.79
-6446.0,None,None > 5062.2,None > 1384.79
+6447.0,None,None > 5062.2,None > 1384.79
 6430.4,None,None > 5045.6,None > 1384.79
 6411.0,None,None > 5026.2,None > 1384.79
-6308.0,None,None > 4923.8,None > 1384.79
+6308.6,None,None > 4923.8,None > 1384.79
 6558.0,None,None > 5173.2,None > 1384.79
 6284.0,None,None > 4899.2,None > 1384.79
-6189.0,None,None > 4804.2,None > 1384.79
+6189.5,None,None > 4804.2,None > 1384.79
 6229.0,None,None > 4844.2,None > 1384.79
 6115.8,None,None > 4731.0,None > 1384.79
 6063.0,None,None > 4678.2,None > 1384.79
@@ -90,7 +85,7 @@
 5864.6,None,None > 4479.8,None > 1384.79
 5821.5,None,None > 4436.7,None > 1384.79
 5739.0,None,None > 4354.2,None > 1384.79
-5650.0,None,None > 4265.6,None > 1384.79
+5650.4,None,None > 4265.6,None > 1384.79
 5584.0,None,None > 4199.2,None > 1384.79
 5323.0,None,None > 3938.2,None > 1384.79
 5272.8,None,None > 3888.0,None > 1384.79
@@ -125,7 +120,6 @@
 4299.0,None,None > 2520.67,None > 1778.33
 2527.18,None,None > 386.1,None > 2140.82
 5053.8,None,None > 2913.2,None > 2140.82
-6556.0,None,None > 4415.2,None > 2140.82
 6558.0,None,None > 4417.2,None > 2140.82
 6030.0,None,None > 3889.2,None > 2140.82
 5878.0,None,None > 3737.2,None > 2140.82
@@ -135,7 +129,7 @@
 5272.8,None,None > 3132.0,None > 2140.82
 5054.6,None,None > 2913.0,None > 2140.82
 4809.4,None,None > 2668.6,None > 2140.82
-4697.0,None,None > 2556.2,None > 2140.82
+4698.0,None,None > 2556.2,None > 2140.82
 4299.0,None,None > 2158.2,None > 2140.82
 6776.63,None,None > 4249.43,None > 2527.18
 6430.4,None,None > 3903.2,None > 2527.18
@@ -154,8 +148,8 @@
 5970.6,None,None > 3187.0,None > 2783.6
 5864.6,None,None > 3081.0,None > 2783.6
 5499.0,None,None > 2715.4,None > 2783.6
-5480.0,None,None > 2696.8,None > 2783.6
-5313.0,None,None > 2529.8,None > 2783.6
+5480.4,None,None > 2696.8,None > 2783.6
+5313.4,None,None > 2529.8,None > 2783.6
 5272.8,None,None > 2489.2,None > 2783.6
 5054.6,None,None > 2271.0,None > 2783.6
 6284.0,None,None > 3434.4,None > 2849.6
@@ -183,8 +177,8 @@
 6284.0,None,None > 1646.2,None > 4637.8
 6030.0,None,None > 1392.2,None > 4637.8
 5864.6,None,None > 1226.8,None > 4637.8
-5650.0,None,None > 1012.6,None > 4637.8
-5650.0,None,None > 1012.6,None > 4637.8
+5650.4,None,None > 1012.6,None > 4637.8
+5650.4,None,None > 1012.6,None > 4637.8
 6308.6,None,None > 1254.8,None > 5053.8
 6115.8,None,None > 4061.9,None > 2053.0
 6063.0,None,None > 4009.1,None > 2053.0
@@ -213,7 +207,6 @@
 6776.63 > 6776.3 > 0.0
 6762 > 6762 > 0.0
 6722.9 > 6772.9 > 0.0
-6656 > 6656 > 0.0
 6524.5 > 6524.5 > 0.0
 6454.3 > 6454.3 > 0.0
 6411 > 6411 > 0.0
