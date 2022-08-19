@@ -153,7 +153,7 @@ class IRaised(LevelStyle):
                   y_pos,
                   y_pos)
         
-        self.name_pos = (x_pos - self.half_width + shift, y_pos+height)
+        self.name_pos = (x_pos - self.half_width, y_pos+height)
         self.spin_pos = self.name_pos
         self.parity_pos = self.name_pos
             
@@ -210,7 +210,7 @@ class ILowered(LevelStyle):
                   y_pos,
                   y_pos)
         
-        self.name_pos = (x_pos - self.half_width + shift, y_pos-height)
+        self.name_pos = (x_pos - self.half_width, y_pos-height)
         self.spin_pos = self.name_pos
         self.parity_pos = self.name_pos
         self.reverse = True
@@ -219,7 +219,7 @@ class ILowered(LevelStyle):
         return go.Scatter(x=self.x, y=self.y, **kwargs)
     
     def get_annotations(self, name='', spin='', parity=''):
-        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='left', showarrow=False)
+        annotation = dict(x=self.name_pos[0], y=self.name_pos[1], xref='x', yref='y', text=f"{name} {spin}{parity}", yanchor='middle', xanchor='right', showarrow=False)
         return [annotation]
     
     
