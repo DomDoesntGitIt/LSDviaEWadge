@@ -70,7 +70,8 @@ class Canvas(go.Figure):
         self.add_annotation(x=dx, y=dy, ax=px, ay=py, **kwargs)
             
     def read_from_nlv(self, filename:str, spacing=100, x_points=np.linspace(0.2,0.8,10),
-                      transition_sort: callable = None, proportional=False, br_widths=False, level_kw={}, transition_kw={}):
+                      transition_sort: callable = None, proportional=False, br_widths=False,
+                      auto_sort: bool = True, level_kw={}, transition_kw={}):
         levels, transitions = read(filename)
         
         float_levels = []
@@ -88,13 +89,13 @@ class Canvas(go.Figure):
         
         
         defaults = dict(x=0.5, width=1, style='flat', height=10, trace_kw=dict(line=dict(color='black')))
-        # make the levels
-        for level in levels:
-            for default in defaults.keys():
+        level_kw_cp = copy.deepcopy(level_kw) 
+        for default in defaults.keys():
                 if default not in list(level_kw.keys()):
-                    
-                    level_kw[default] = defaults[default]
-            
+                    level_kw_cp[default] = defaults[default]
+        
+        # make the levels
+        for level in levels:            
             available_y = spc_mng.get_spaced_y(level.energy)
             # print(level.energy, available_y)
             if level.spin == None:
@@ -108,12 +109,13 @@ class Canvas(go.Figure):
                 parity = str(level.parity)
 
             if proportional:
-                level_kw_cp = copy.deepcopy(level_kw) 
+                # level_kw_cp = copy.deepcopy(level_kw) 
                 level_kw_cp['height'] += abs(available_y - level.energy)
                 self.add_level(y=level.energy, name=str(level.energy), spin=spin, parity=parity, **level_kw_cp)
-                
+                #undo the change
+                level_kw_cp['height'] -= abs(available_y - level.energy)
             else:
-                self.add_level(y=available_y, name=str(level.energy), spin=spin, parity=parity, **level_kw)
+                self.add_level(y=available_y, name=str(level.energy), spin=spin, parity=parity, **level_kw_cp)
             
         
         if transition_sort is None:
@@ -126,9 +128,15 @@ class Canvas(go.Figure):
         
             
         
-        for transition in transitions:
+        for i,transition in enumerate(transitions):
             cpy_transition_kw = copy.deepcopy(transition_kw)
-            available_x = spc_mng.get_path(transition.parent.energy, transition.daughter.energy)
+            
+            if auto_sort:
+                #try to minimize the width with simple algorithm
+                available_x = spc_mng.get_path(transition.parent.energy, transition.daughter.energy)
+            else:
+                available_x = spc_mng.xspace[-i]    
+            
             available_y_head = spc_mng.get_spaced_y(transition.daughter.energy)
             available_y_tail = spc_mng.get_spaced_y(transition.parent.energy)
             
