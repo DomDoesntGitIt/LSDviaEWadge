@@ -28,6 +28,11 @@ def read(filename):
             # seperate out the three different columns
             line = line.replace(' ','')
             line = line.strip()
+            
+            if len(line) == 0:
+                # if the line is empty skip it
+                continue    
+                
             gamma_collect = False
             cols = line.split('>')
             
